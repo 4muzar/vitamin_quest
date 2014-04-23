@@ -16,6 +16,13 @@
 		}
 		
 		private function addedToStageHandler(e : Event) {
+			var channel = momSounds[0].play();
+			channel.addEventListener(Event.SOUND_COMPLETE, this.whereIsKeysCompleteHandler);
+		}
+		
+		private function whereIsKeysCompleteHandler(e : Event) {
+			trace('complete');
+			hiddenKeys.visible = true;
 			hiddenKeys.addEventListener(MouseEvent.CLICK, this.hiddenKeysClickHandler);
 		}
 		
@@ -62,6 +69,19 @@
 		private function notebookClickHandler(e : MouseEvent) {
 			
 		}
+		
+		/**
+		* class properties
+		**/
+		
+		private var momSounds		: Array = new Array(
+														new WhereIsKeys(), 
+														new WhereIsTema(), 
+														new TemaIsFound(),
+														new WhereIsPhone(),
+														new PhoneRinging(),
+														new Present()
+														);
 		
 		
 	}
