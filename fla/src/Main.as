@@ -31,6 +31,7 @@
 		}
 		
 		private function keysClickHandler(e : MouseEvent) {
+			(new KeysSound()).play();
 			keys.visible = false;
 			var channel = momSounds[1].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.startTemaFinding);
@@ -42,11 +43,13 @@
 		}
 		
 		private function chairClickHandler(e : MouseEvent) {
+			(new ChairSound()).play();
 			this.gotoAndStop(3);
 			curtain.addEventListener(MouseEvent.CLICK, this.curtainClickHandler);
 		}
 		
 		private function curtainClickHandler(e : MouseEvent) {
+			(new CurtainSound()).play();
 			this.gotoAndStop(4);
 			
 			var channel = momSounds[2].play();
@@ -80,6 +83,7 @@
 		}
 		
 		private function adapterClickHandler(e : MouseEvent) {
+			(new AdapterSound()).play();
 			this.gotoAndStop(6);
 			phone.addEventListener(MouseEvent.CLICK, this.phoneClickHandler);
 		}
