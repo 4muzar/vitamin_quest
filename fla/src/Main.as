@@ -15,7 +15,16 @@
 			this.addEventListener(Event.ADDED_TO_STAGE, this.addedToStageHandler);
 		}
 		
+		private function gotoF(e:Event):void{
+			//notebookClickHandler(null);
+		}
+		
 		private function addedToStageHandler(e : Event) {
+			startBTN.addEventListener(MouseEvent.CLICK, this.startBTNClickHandler);
+		}
+		
+		private function startBTNClickHandler(e : MouseEvent) {
+			this.gotoAndStop(2);
 			var channel = momSounds[0].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.whereIsKeysCompleteHandler);
 		}
@@ -26,7 +35,7 @@
 		}
 		
 		private function hiddenKeysClickHandler(e : MouseEvent) {
-			this.gotoAndStop(2);
+			this.gotoAndStop(3);
 			keys.addEventListener(MouseEvent.CLICK, this.keysClickHandler);
 		}
 		
@@ -44,13 +53,13 @@
 		
 		private function chairClickHandler(e : MouseEvent) {
 			(new ChairSound()).play();
-			this.gotoAndStop(3);
+			this.gotoAndStop(4);
 			curtain.addEventListener(MouseEvent.CLICK, this.curtainClickHandler);
 		}
 		
 		private function curtainClickHandler(e : MouseEvent) {
 			(new CurtainSound()).play();
-			this.gotoAndStop(4);
+			this.gotoAndStop(5);
 			
 			var channel = momSounds[2].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.temaFound);
@@ -61,7 +70,7 @@
 		}
 		
 		private function temaTimerHandler(e : TimerEvent) {
-			this.gotoAndStop(5);
+			this.gotoAndStop(6);
 		}
 		
 		private function temaFound(e : Event) {
@@ -84,7 +93,7 @@
 		
 		private function adapterClickHandler(e : MouseEvent) {
 			(new AdapterSound()).play();
-			this.gotoAndStop(6);
+			this.gotoAndStop(7);
 			phone.addEventListener(MouseEvent.CLICK, this.phoneClickHandler);
 		}
 		
@@ -102,7 +111,8 @@
 		}
 		
 		private function notebookClickHandler(e : MouseEvent) {
-			
+			(new PageSound).play();
+			this.gotoAndStop(8);
 		}
 		
 		/**
