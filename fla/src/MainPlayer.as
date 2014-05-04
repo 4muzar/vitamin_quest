@@ -14,20 +14,20 @@
 		public function MainPlayer() {
 			this.playlist = this.songs;
 			this.playSong();
-			//this.fadeIn();
+			this.fadeOut();
 		}
 		
 		public function changePlaylist () : void {
 			TweenMax.to(this.soundChannel, 1, { volume:this.FADE, startAt: { volume:this.VOLUME }, onComplete:this.stopPlaylist });
 		}
 		
-		/*public function fadeIn () : void {
-			TweenMax.to(this.soundChannel, 1, { volume:this.VOLUME, startAt: { volume:this.FADE } });			
+		public function fadeIn () : void {
+			TweenMax.to(this.soundChannel, 2, { volume:this.VOLUME, startAt: { volume:this.FADE } });			
 		}
 		
 		public function fadeOut () : void {
-			TweenMax.to(this.soundChannel, 1, { volume:this.FADE, startAt: { volume:this.VOLUME }, onComplete:this.stopSound });			
-		}*/
+			TweenMax.to(this.soundChannel, 2, { volume:this.FADE, startAt: { volume:this.VOLUME } });			
+		}
 		
 		public function playSong (nextSong : int = -1) : void {
 			
@@ -64,7 +64,7 @@
 *****************/
 		
 		private const VOLUME		: Number = 0.2;
-		private const FADE			: Number = 0;		
+		private const FADE			: Number = 0.05;		
 		
 		private var soundTransform 	: SoundTransform = new SoundTransform(0.2);
 		private var soundChannel	: SoundChannel;

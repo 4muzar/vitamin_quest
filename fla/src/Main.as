@@ -7,6 +7,8 @@
 	import flash.events.TimerEvent;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.net.URLRequest;
+	import flash.media.Sound;
 	
 	
 	public class Main extends MovieClip {
@@ -39,6 +41,7 @@
 		}
 		
 		private function whereIsKeysCompleteHandler(e : Event) : void {
+			this.mainPlayer.fadeIn();
 			hiddenKeys.visible = true;
 			hiddenKeys.addEventListener(MouseEvent.CLICK, this.hiddenKeysClickHandler);
 		}
@@ -51,11 +54,14 @@
 		private function keysClickHandler(e : MouseEvent) : void {
 			(new KeysSound()).play();
 			keys.visible = false;
+			
+			this.mainPlayer.fadeOut();
 			var channel = momSounds[1].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.startTemaFinding);
 		}
 		
-		private function startTemaFinding(e : Event) : void {			
+		private function startTemaFinding(e : Event) : void {
+			this.mainPlayer.fadeIn();
 			chair.visible = true;
 			chair.addEventListener(MouseEvent.CLICK, this.chairClickHandler);
 		}
@@ -70,6 +76,7 @@
 			(new CurtainSound()).play();
 			this.gotoAndStop(5);
 			
+			this.mainPlayer.fadeOut();
 			var channel = momSounds[2].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.temaFound);
 			
@@ -83,7 +90,11 @@
 		}
 		
 		private function temaFound(e : Event) : void {
-			this.phoneChannel = momSounds[4].play();
+			var req:URLRequest = new URLRequest ("audio/phone_ringing.mp3");
+			var sound:Sound = new Sound();			
+			sound.load(req);
+			
+			this.phoneChannel = sound.play(0, 999, new SoundTransform(0.7));
 			
 			var timer = new Timer(2000, 1);
 			timer.addEventListener(TimerEvent.TIMER, this.phoneTimerHandler);
@@ -110,11 +121,12 @@
 			phone.visible = false;
 			this.phoneChannel.stop();
 			
-			var channel = momSounds[5].play();
+			var channel = momSounds[4].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.startFindPresent);
 		}
 		
 		private function startFindPresent(e : Event) : void {
+			this.mainPlayer.fadeIn();
 			notebook.visible = true;
 			notebook.addEventListener(MouseEvent.CLICK, this.notebookClickHandler);
 		}
@@ -134,7 +146,6 @@
 														new WhereIsTema(), 
 														new TemaIsFound(),
 														new WhereIsPhone(),
-														new PhoneRinging(),
 														new Present()
 														);
 		
