@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
+	import flash.media.SoundTransform;
 	
 	
 	public class Test extends MovieClip {
@@ -13,11 +14,11 @@
 			this.addEventListener(Event.ADDED_TO_STAGE, this.addedToStageHandler);
 		}
 		
-		private function addedToStageHandler(e : Event) {
+		private function addedToStageHandler(e : Event) : void {
 			this.addEventListener(MouseEvent.CLICK, this.clickHandler);
 		}
 		
-		private function clickHandler(e : MouseEvent) {
+		private function clickHandler(e : MouseEvent) : void {
 			if (e.target is Variant) {
 				var variant : int = int(e.target.name.charAt(3));
 				if (variant == this.correctAnswers[this.page-1]) {
@@ -28,22 +29,20 @@
 			}
 		}
 		
-		private function addWrongAnswer (answer : int) {
+		private function addWrongAnswer (answer : int) : void {
 			if (this.wrongAnswers.indexOf(answer) == -1) {
 				this.wrongAnswers.push(answer);
 			}
-			trace('this.wrongAnswers add', this.wrongAnswers);
 		}
 		
-		private function removeWrongAnswer (answer : int) {			
+		private function removeWrongAnswer (answer : int) : void {			
 			var wrongIndex : int = this.wrongAnswers.indexOf(answer);
 			if (wrongIndex != -1) {
 				this.wrongAnswers.splice(wrongIndex, 1);
 			}
-			trace('this.wrongAnswers remove', this.wrongAnswers);
 		}
 		
-		private function goToNextPage(p) {
+		private function goToNextPage(p) : void {
 			if (this.firstCycle && this.wrongAnswers.length == 0) {
 				this.gotoAndStop(++this.page);
 			} else {
@@ -55,14 +54,16 @@
 						this.page = this.wrongAnswers[0];
 						this.gotoAndStop(this.page);
 					} else if (this.wrongAnswers.length == 0) {
-						this.gotoAndStop(8);
+						this.page = 8;
+						this.gotoAndStop(this.page);
 					} else {
 						this.page = this.wrongAnswers[0];
 						this.gotoAndStop(this.page);
 					}					
 				}
 			}
-			this.pageSound.play();
+			this.pageSound.play(0, 0, new SoundTransform(0.2));
+			(parent as Main).playSong(this.page-1);			
 		}
 		
 		/**
