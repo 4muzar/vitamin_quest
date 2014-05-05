@@ -5,6 +5,8 @@
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
 	import flash.media.SoundTransform;
+	import flash.net.URLRequest;
+	import flash.media.SoundChannel;
 	
 	
 	public class Test extends MovieClip {
@@ -24,8 +26,13 @@
 				if (variant == this.correctAnswers[this.page-1]) {
 					(indicator as MovieClip).gotoAndStop(++this.correct + 1);
 					this.removeWrongAnswer(this.page);
-				} else this.addWrongAnswer(this.page);
-				this.goToNextPage(this.page + 1);
+					this.playSound(new Verno());
+				} else {
+					this.addWrongAnswer(this.page);					
+					this.playSound(new Fail(), 900);
+					var fail:Fail = new Fail();
+					fail.play(900);
+				}
 			}
 		}
 		
@@ -66,9 +73,22 @@
 			(parent as Main).playSong(this.page-1);			
 		}
 		
+		private function playSound(sound:Sound, startTime:Number = 0) : void {
+			this.player.fadeOut();
+			var channel:SoundChannel = sound.play(startTime);
+			channel.addEventListener(Event.SOUND_COMPLETE, this.resultSoundHandler);
+		}
+		
+		private function resultSoundHandler(e : Event) : void {
+			this.player.fadeIn();
+			this.goToNextPage(this.page + 1);
+		}
+		
 		/**
 		* class properties
 		**/
+		
+		public var player				: MainPlayer;
 		
 		private var correctAnswers		: Array = new Array(3, 2, 2, 4, 4, 4, 1);
 		private var wrongAnswers		: Array = new Array();

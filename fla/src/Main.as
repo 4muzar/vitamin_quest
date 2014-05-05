@@ -31,16 +31,31 @@
 		}
 		
 		private function startBTNClickHandler(e : MouseEvent) : void {
-			this.mainPlayer = new MainPlayer();
-			
+			var req:URLRequest = new URLRequest ("audio/sounds/dver'.mp3");
+			var sound:Sound = new Sound();			
+			sound.load(req);			
+			var channel = sound.play();
+			channel.addEventListener(Event.SOUND_COMPLETE, this.enterHandler);
+		}
+		
+		private function enterHandler(e : Event) : void {			
 			//test
 			//this.adapterClickHandler(null);
 			this.gotoAndStop(2);
+			this.mainPlayer = new MainPlayer();	
+			
+			var timer = new Timer(3000, 1);
+			timer.addEventListener(TimerEvent.TIMER, this.startTimerHandler);
+			timer.start();
+		}
+		
+		private function startTimerHandler(e : TimerEvent) : void {		
 			var channel = momSounds[0].play();
 			channel.addEventListener(Event.SOUND_COMPLETE, this.whereIsKeysCompleteHandler);
 		}
 		
 		private function whereIsKeysCompleteHandler(e : Event) : void {
+			this.missionReceivedHandler();
 			this.mainPlayer.fadeIn();
 			hiddenKeys.visible = true;
 			hiddenKeys.addEventListener(MouseEvent.CLICK, this.hiddenKeysClickHandler);
@@ -132,9 +147,17 @@
 		}
 		
 		private function notebookClickHandler(e : MouseEvent) : void {
+			//this.mainPlayer = new MainPlayer();
+			
 			(new PageSound).play(0, 0, new SoundTransform(0.2));
 			this.gotoAndStop(8);
+			test.player = this.mainPlayer;
 			this.mainPlayer.changePlaylist();
+		}
+		
+		private function missionReceivedHandler () : void {
+			missionReceived.gotoAndPlay(1);
+			this.zadanie.play(1000);
 		}
 		
 		/**
@@ -148,6 +171,8 @@
 														new WhereIsPhone(),
 														new Present()
 														);
+		
+		private var zadanie			: Zadanie = new Zadanie();
 		
 		private var phoneChannel	: SoundChannel;
 		private var mainPlayer		: MainPlayer;
