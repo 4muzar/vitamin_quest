@@ -72,10 +72,10 @@
 		
 		private var playlist		: Array;
 		private var songs			: Array = new Array(  
-														"audio/music/kon.mp3",
 														"audio/music/trassae95.mp3",
 														"audio/music/loshadka.mp3",
-														"audio/music/secret.mp3"
+														"audio/music/secret.mp3",
+														"audio/music/kon.mp3"														
 														);
 														
 		private var fromGames		: Array = new Array(

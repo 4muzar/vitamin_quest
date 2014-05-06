@@ -76,6 +76,7 @@
 		}
 		
 		private function startTemaFinding(e : Event) : void {
+			this.missionRefreshedHandler();
 			this.mainPlayer.fadeIn();
 			chair.visible = true;
 			chair.addEventListener(MouseEvent.CLICK, this.chairClickHandler);
@@ -122,6 +123,7 @@
 		}
 		
 		private function startFindPhone(e : Event) : void {
+			this.missionRefreshedHandler();
 			adapter.visible = true;
 			adapter.addEventListener(MouseEvent.CLICK, this.adapterClickHandler);
 		}
@@ -141,6 +143,7 @@
 		}
 		
 		private function startFindPresent(e : Event) : void {
+			this.missionRefreshedHandler();
 			this.mainPlayer.fadeIn();
 			notebook.visible = true;
 			notebook.addEventListener(MouseEvent.CLICK, this.notebookClickHandler);
@@ -157,6 +160,11 @@
 		
 		private function missionReceivedHandler () : void {
 			missionReceived.gotoAndPlay(1);
+			this.zadanie.play(1000);
+		}
+		
+		private function missionRefreshedHandler () : void {
+			missionRefreshed.gotoAndPlay(1);
 			this.zadanie.play(1000);
 		}
 		
