@@ -22,7 +22,7 @@
 		
 		private function clickHandler(e : MouseEvent) : void {
 			if (e.target is Variant) {
-				var variant : int = int(e.target.name.charAt(3));
+				var variant : int = int(e.target.name.charAt(3));				
 				if (variant == this.correctAnswers[this.page-1]) {
 					(indicator as MovieClip).gotoAndStop(++this.correct + 1);
 					this.removeWrongAnswer(this.page);
@@ -33,6 +33,7 @@
 					var fail:Fail = new Fail();
 					fail.play(900);
 				}
+				blocker.visible = true;
 			}
 		}
 		
@@ -69,8 +70,10 @@
 					}					
 				}
 			}
-			this.pageSound.play(0, 0, new SoundTransform(0.2));
-			(parent as Main).playSong(this.page-1);			
+			blocker.visible = false;
+			if (this.prevPage != this.page) this.pageSound.play(0, 0, new SoundTransform(0.2));
+			(parent as Main).playSong(this.page-1);
+			this.prevPage = this.page;
 		}
 		
 		private function playSound(sound:Sound, startTime:Number = 0) : void {
@@ -93,6 +96,7 @@
 		private var correctAnswers		: Array = new Array(3, 2, 2, 4, 4, 4, 1);
 		private var wrongAnswers		: Array = new Array();
 		private var page				: int = 1;
+		private var prevPage			: int = 1;
 		private var pageSound			: Sound = new PageSound();
 		private var firstCycle			: Boolean = true;
 		private var correct				: int = 0;

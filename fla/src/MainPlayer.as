@@ -71,7 +71,8 @@
 		private var song			: int = 0;
 		
 		private var playlist		: Array;
-		private var songs			: Array = new Array(  
+		private var songs			: Array = new Array(
+														"audio/music/myfriend.mp3",
 														"audio/music/trassae95.mp3",
 														"audio/music/loshadka.mp3",
 														"audio/music/secret.mp3",

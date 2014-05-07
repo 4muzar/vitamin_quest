@@ -27,6 +27,7 @@
 		}
 		
 		private function addedToStageHandler(e : Event) : void {
+			this.mainPlayer = new MainPlayer();
 			startBTN.addEventListener(MouseEvent.CLICK, this.startBTNClickHandler);
 		}
 		
@@ -41,8 +42,7 @@
 		private function enterHandler(e : Event) : void {			
 			//test
 			//this.adapterClickHandler(null);
-			this.gotoAndStop(2);
-			this.mainPlayer = new MainPlayer();	
+			this.gotoAndStop(2);	
 			
 			var timer = new Timer(3000, 1);
 			timer.addEventListener(TimerEvent.TIMER, this.startTimerHandler);
